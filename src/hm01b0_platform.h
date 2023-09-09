@@ -23,12 +23,11 @@ SOFTWARE.
 #ifndef _HM01B0_PLATFORM_H_
 
 // Conditionally Include Platforms
-#if defined (AM_PART_APOLLO3) && \
-    defined (ARDUINO_SFE_EDGE)
+#if 1
   #include "platforms/apollo3/include/hm01b0_platform_apollo3.h"
 #else
   #warning "No platform implementation - falling back to generic Arduino interface. Performance not guaranteed."
-  #include "platforms/arduino_generic/include/hm01b0_platform_arduino_generic.h"  
+  #include "platforms/arduino_generic/include/hm01b0_platform_arduino_generic.h"
 #endif // platform inclusion
 
 #ifndef HM01B0_READ_HSYNC

@@ -70,7 +70,7 @@ extern "C"
 #define HM01B0_MODEL_ID                                 (0x01B0)
 
 // forward declarations
-typedef struct _hm01b0_cfg_t hm01b0_cfg_t;
+typedef struct _hm01b0_foo_cfg_t hm01b0_foo_cfg_t;
 
 typedef enum {
     HM01B0_ERR_OK               = 0x00,
@@ -85,20 +85,20 @@ typedef enum {
     HM01B0_ERR_UNIMPLEMENTED,
 
     HM01B0_NUM_ERR
-} hm01b0_status_e;
+} hm01b0_foo_status_e;
 
-typedef hm01b0_status_e (*hm01b0_if_fn_t)(hm01b0_cfg_t* psCfg, void* arg);
-typedef hm01b0_status_e (*hm01b0_if_i2c_fn_t)(hm01b0_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);
-typedef hm01b0_status_e (*hm01b0_if_on_off_fn_t)(hm01b0_cfg_t* psCfg, bool enable, void* arg);
+typedef hm01b0_foo_status_e (*hm01b0_foo_if_fn_t)(hm01b0_foo_cfg_t* psCfg, void* arg);
+typedef hm01b0_foo_status_e (*hm01b0_foo_if_i2c_fn_t)(hm01b0_foo_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);
+typedef hm01b0_foo_status_e (*hm01b0_foo_if_on_off_fn_t)(hm01b0_foo_cfg_t* psCfg, bool enable, void* arg);
 typedef struct {
-  hm01b0_if_fn_t        init;     // any initialization code needed
-  hm01b0_if_i2c_fn_t    write;    // write to registers over I2C
-  hm01b0_if_i2c_fn_t    read;     // read from registers over I2C
-  hm01b0_if_on_off_fn_t mclk;     // enable/disable the clock generation hardware
-  hm01b0_if_on_off_fn_t trig;     // enable/disabe the trigger pin
-  hm01b0_if_fn_t        deinit;   // any deinitialization code needed
+  hm01b0_foo_if_fn_t        init;     // any initialization code needed
+  hm01b0_foo_if_i2c_fn_t    write;    // write to registers over I2C
+  hm01b0_foo_if_i2c_fn_t    read;     // read from registers over I2C
+  hm01b0_foo_if_on_off_fn_t mclk;     // enable/disable the clock generation hardware
+  hm01b0_foo_if_on_off_fn_t trig;     // enable/disabe the trigger pin
+  hm01b0_foo_if_fn_t        deinit;   // any deinitialization code needed
   void*                 arg;      // argument for the user available in interface functions
-} hm01b0_if_t;  // abstracts the interface for the HM01B0
+} hm01b0_foo_if_t;  // abstracts the interface for the HM01B0
 
 typedef struct
 {
@@ -106,9 +106,9 @@ typedef struct
     uint8_t                 ui8Val;
 } hm_script_t;
 
-struct _hm01b0_cfg_t {
+struct _hm01b0_foo_cfg_t {
 
-  hm01b0_if_t*   interface;
+  hm01b0_foo_if_t*   interface;
 };
 
 typedef struct
@@ -118,7 +118,7 @@ typedef struct
     uint8_t                 ui8ConvergeInTh;
     uint8_t                 ui8ConvergeOutTh;
     uint8_t                 ui8AEMean;
-} hm01b0_ae_cfg_t;
+} hm01b0_foo_ae_cfg_t;
 
 typedef struct
 {
@@ -127,7 +127,7 @@ typedef struct
     uint8_t                 ui8AGain;
     uint8_t                 ui8DGain_H;
     uint8_t                 ui8DGain_L;
-} hm01b0_snr_expo_gain_ctrl_t;
+} hm01b0_foo_snr_expo_gain_ctrl_t;
 
 //*****************************************************************************
 //
@@ -143,7 +143,7 @@ typedef struct
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_write_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes);
+hm01b0_foo_status_e hm01b0_foo_write_reg(hm01b0_foo_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes);
 
 //*****************************************************************************
 //
@@ -159,7 +159,7 @@ hm01b0_status_e hm01b0_write_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t 
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_read_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes);
+hm01b0_foo_status_e hm01b0_foo_read_reg(hm01b0_foo_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes);
 
 //*****************************************************************************
 //
@@ -174,7 +174,7 @@ hm01b0_status_e hm01b0_read_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_load_script(hm01b0_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum);
+hm01b0_foo_status_e hm01b0_foo_load_script(hm01b0_foo_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum);
 
 //*****************************************************************************
 //
@@ -187,7 +187,7 @@ hm01b0_status_e hm01b0_load_script(hm01b0_cfg_t *psCfg, hm_script_t *psScript, u
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_power_up(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_power_up(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -200,7 +200,7 @@ hm01b0_status_e hm01b0_power_up(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_power_down(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_power_down(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -213,7 +213,7 @@ hm01b0_status_e hm01b0_power_down(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_mclk_enable(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_mclk_enable(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -226,7 +226,7 @@ hm01b0_status_e hm01b0_mclk_enable(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_mclk_disable(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_mclk_disable(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -239,7 +239,7 @@ hm01b0_status_e hm01b0_mclk_disable(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_init_if(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_init_if(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -252,7 +252,7 @@ hm01b0_status_e hm01b0_init_if(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_deinit_if(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_deinit_if(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -266,7 +266,7 @@ hm01b0_status_e hm01b0_deinit_if(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_get_modelid(hm01b0_cfg_t *psCfg, uint16_t *pui16MID);
+hm01b0_foo_status_e hm01b0_foo_get_modelid(hm01b0_foo_cfg_t *psCfg, uint16_t *pui16MID);
 
 //*****************************************************************************
 //
@@ -281,7 +281,7 @@ hm01b0_status_e hm01b0_get_modelid(hm01b0_cfg_t *psCfg, uint16_t *pui16MID);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_init_system(hm01b0_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum);
+hm01b0_foo_status_e hm01b0_foo_init_system(hm01b0_foo_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum);
 
 //*****************************************************************************
 //
@@ -294,7 +294,7 @@ hm01b0_status_e hm01b0_init_system(hm01b0_cfg_t *psCfg, hm_script_t *psScript, u
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_test_walking1s(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_test_walking1s(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -308,7 +308,7 @@ hm01b0_status_e hm01b0_test_walking1s(hm01b0_cfg_t *psCfg);
 //! @return Mismatch count.
 //
 //*****************************************************************************
-uint32_t hm01b0_test_walking1s_check_data_sanity(uint8_t *pui8Buffer, uint32_t ui32BufferLen);
+uint32_t hm01b0_foo_test_walking1s_check_data_sanity(uint8_t *pui8Buffer, uint32_t ui32BufferLen);
 
 //*****************************************************************************
 //
@@ -321,7 +321,7 @@ uint32_t hm01b0_test_walking1s_check_data_sanity(uint8_t *pui8Buffer, uint32_t u
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_reset_sw(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_reset_sw(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
@@ -336,7 +336,7 @@ hm01b0_status_e hm01b0_reset_sw(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_get_mode(hm01b0_cfg_t *psCfg, uint8_t *pui8Mode);
+hm01b0_foo_status_e hm01b0_foo_get_mode(hm01b0_foo_cfg_t *psCfg, uint8_t *pui8Mode);
 
 //*****************************************************************************
 //
@@ -356,7 +356,7 @@ hm01b0_status_e hm01b0_get_mode(hm01b0_cfg_t *psCfg, uint8_t *pui8Mode);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_set_mode(hm01b0_cfg_t *psCfg, uint8_t ui8Mode, uint8_t framecnt);
+hm01b0_foo_status_e hm01b0_foo_set_mode(hm01b0_foo_cfg_t *psCfg, uint8_t ui8Mode, uint8_t framecnt);
 
 
 //*****************************************************************************
@@ -371,14 +371,14 @@ hm01b0_status_e hm01b0_set_mode(hm01b0_cfg_t *psCfg, uint8_t ui8Mode, uint8_t fr
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_cmd_update(hm01b0_cfg_t *psCfg);
+hm01b0_foo_status_e hm01b0_foo_cmd_update(hm01b0_foo_cfg_t *psCfg);
 
 //*****************************************************************************
 //
 //! @brief Get HM01B0 AE settings
 //!
 //! @param psCfg            - Pointer to HM01B0 configuration structure.
-//! @param psAECfg          - Pointer to the structure hm01b0_ae_cfg_t.
+//! @param psAECfg          - Pointer to the structure hm01b0_foo_ae_cfg_t.
 //!
 //! This function checks if AE is converged or not and returns ui32Err accordingly.
 //! If caller needs detailed AE settings, psAECfg has to be non NULL.
@@ -386,7 +386,7 @@ hm01b0_status_e hm01b0_cmd_update(hm01b0_cfg_t *psCfg);
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_get_ae(hm01b0_cfg_t *psCfg, hm01b0_ae_cfg_t *psAECfg);
+hm01b0_foo_status_e hm01b0_foo_get_ae(hm01b0_foo_cfg_t *psCfg, hm01b0_foo_ae_cfg_t *psAECfg);
 
 //*****************************************************************************
 //
@@ -396,43 +396,43 @@ hm01b0_status_e hm01b0_get_ae(hm01b0_cfg_t *psCfg, hm01b0_ae_cfg_t *psAECfg);
 //! @param ui8CalFrames     - Frame counts for calibratoin.
 //! @param pui8Buffer       - Pointer to the frame buffer.
 //! @param ui32BufferLen    - Framebuffer size.
-//! @param pAECfg           - Pointer to hm01b0_ae_cfg_t structure to fill with calibration results
+//! @param pAECfg           - Pointer to hm01b0_foo_ae_cfg_t structure to fill with calibration results
 //!
 //! This function lets HM01B0 AE settled as much as possible within a given frame counts.
 //!
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_cal_ae(hm01b0_cfg_t *psCfg, uint8_t ui8CalFrames, uint8_t *pui8Buffer, uint32_t ui32BufferLen, hm01b0_ae_cfg_t* pAECfg );
+hm01b0_foo_status_e hm01b0_foo_cal_ae(hm01b0_foo_cfg_t *psCfg, uint8_t ui8CalFrames, uint8_t *pui8Buffer, uint32_t ui32BufferLen, hm01b0_foo_ae_cfg_t* pAECfg );
 
 //*****************************************************************************
 //
 //! @brief Save HM01B0 exposure gain settings.
 //!
 //! @param psCfg            - Pointer to HM01B0 configuration structure.
-//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_snr_expo_gain_ctrl_t
+//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_foo_snr_expo_gain_ctrl_t
 //!
 //! This function saves HM01B0 exposure gain settings.
 //!
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_save_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_expo_gain_ctrl_t *psExpoGainCtrl);
+hm01b0_foo_status_e hm01b0_foo_save_exposure_gains(hm01b0_foo_cfg_t *psCfg, hm01b0_foo_snr_expo_gain_ctrl_t *psExpoGainCtrl);
 
 //*****************************************************************************
 //
 //! @brief Restore HM01B0 exposure gain settings.
 //!
 //! @param psCfg            - Pointer to HM01B0 configuration structure.
-//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_snr_expo_gain_ctrl_t
+//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_foo_snr_expo_gain_ctrl_t
 //!
 //! This function restores HM01B0 exposure gain settings. The call flow shall be
-//! hm01b0_restore_exposure_gains() -> hm01b0_cmd_update() -> hm01b0_set_mode()
+//! hm01b0_foo_restore_exposure_gains() -> hm01b0_foo_cmd_update() -> hm01b0_foo_set_mode()
 //!
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_restore_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_expo_gain_ctrl_t *psExpoGainCtrl);
+hm01b0_foo_status_e hm01b0_foo_restore_exposure_gains(hm01b0_foo_cfg_t *psCfg, hm01b0_foo_snr_expo_gain_ctrl_t *psExpoGainCtrl);
 
 //*****************************************************************************
 //
@@ -447,7 +447,7 @@ hm01b0_status_e hm01b0_restore_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_ex
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e HM01B0_C_Hardware_trigger_streaming(hm01b0_cfg_t *psCfg, bool bTrigger);
+hm01b0_foo_status_e HM01B0_C_Hardware_trigger_streaming(hm01b0_foo_cfg_t *psCfg, bool bTrigger);
 
 //*****************************************************************************
 //
@@ -462,7 +462,7 @@ hm01b0_status_e HM01B0_C_Hardware_trigger_streaming(hm01b0_cfg_t *psCfg, bool bT
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_set_mirror(hm01b0_cfg_t *psCfg, bool bHmirror, bool bVmirror);
+hm01b0_foo_status_e hm01b0_foo_set_mirror(hm01b0_foo_cfg_t *psCfg, bool bHmirror, bool bVmirror);
 
 
 //*****************************************************************************
@@ -478,7 +478,7 @@ hm01b0_status_e hm01b0_set_mirror(hm01b0_cfg_t *psCfg, bool bHmirror, bool bVmir
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_blocking_read_oneframe(hm01b0_cfg_t *psCfg, \
+hm01b0_foo_status_e hm01b0_foo_blocking_read_oneframe(hm01b0_foo_cfg_t *psCfg, \
                                     uint8_t *pui8Buffer, uint32_t ui32BufferLen);
 
 #ifdef __cplusplus

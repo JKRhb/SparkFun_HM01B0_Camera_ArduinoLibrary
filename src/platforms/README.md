@@ -15,7 +15,7 @@ Each platform must be gated by preprocessor defines that are unique to that arch
 ** In platform implementation files (C/C++) **
 ``` c
 #if defined (PLATFORM_UNIQUE_MACRO)
-... 
+...
 ... // implementation code here
 ...
 #endif
@@ -30,7 +30,7 @@ Each platform must be gated by preprocessor defines that are unique to that arch
 #include "src/platforms/include/hm01b0_platform_{your_platform_name}.h"
 ...
 ... // more platform includes
-... 
+...
 ```
 
 ## Low-speed Interface
@@ -38,9 +38,9 @@ The low-speed interface is used to handle I2C configuration, MCLK generation, an
 
 The interface is abstracted through this construct:
 ``` c
-typedef hm01b0_status_e (*hm01b0_if_fn_t)(hm01b0_cfg_t* psCfg, void* arg);
-typedef hm01b0_status_e (*hm01b0_if_i2c_fn_t)(hm01b0_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);
-typedef hm01b0_status_e (*hm01b0_if_on_off_fn_t)(hm01b0_cfg_t* psCfg, bool enable, void* arg);
+typedef hm01b0_foo_status_e (*hm01b0_if_fn_t)(hm01b0_foo_cfg_t* psCfg, void* arg);
+typedef hm01b0_foo_status_e (*hm01b0_if_i2c_fn_t)(hm01b0_foo_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);
+typedef hm01b0_foo_status_e (*hm01b0_if_on_off_fn_t)(hm01b0_foo_cfg_t* psCfg, bool enable, void* arg);
 typedef struct {
   hm01b0_if_fn_t        init;     // any initialization code needed
   hm01b0_if_i2c_fn_t    write;    // write to registers over I2C
@@ -52,7 +52,7 @@ typedef struct {
 } hm01b0_if_t;  // abstracts the interface for the HM01B0
 ```
 
-When porting a new platform create an ```hm01b0_if_t``` and fill it with pointers to appropriate functions. This structure is then referenced by the ```hm01b0_cfg_t``` structure called ```hm01b0_cfg``` which every platform must provide. 
+When porting a new platform create an ```hm01b0_if_t``` and fill it with pointers to appropriate functions. This structure is then referenced by the ```hm01b0_cfg_t``` structure called ```hm01b0_cfg``` which every platform must provide.
 
 
 
@@ -64,7 +64,7 @@ The high-speed interface is used in ```hm01b0_c.c``` to read data from the camer
 HM01B0_READ_VSYNC // (currently unused)
 HM01B0_READ_HSYNC // Evaluate to either 0 or 1 indicating the level of the HSYNC pin
 HM01B0_READ_PCLK  // Evaluate to either 0 or 1 indicating the level of the PCLK pin
-HM01B0_READ_BYTE  // Evaluate to an 8-bit quantity describing logic levels on data lines D0-7 
+HM01B0_READ_BYTE  // Evaluate to an 8-bit quantity describing logic levels on data lines D0-7
 ```
 
 These macros can be defined in the platform header file

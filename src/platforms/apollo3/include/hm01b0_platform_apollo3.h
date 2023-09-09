@@ -31,9 +31,9 @@ extern "C" {
 #include "am_bsp.h"
 #include "am_util.h"
 
-#include "hm01b0.h"
+#include "hm01b0_foo.h"
 
-// Mapping BSP -> HM01B0 
+// Mapping BSP -> HM01B0
 #define HM01B0_PIN_D0                   AM_BSP_GPIO_CAMERA_HM01B0_D0
 #define HM01B0_PIN_D1                   AM_BSP_GPIO_CAMERA_HM01B0_D1
 #define HM01B0_PIN_D2                   AM_BSP_GPIO_CAMERA_HM01B0_D2
@@ -107,15 +107,15 @@ typedef struct _hm01b0_platform_apollo3_arg_t {
 extern hm01b0_platform_apollo3_arg_t   hm01b0_platform_apollo3_args;
 
 // Apollo3 HM01B0 Configuration (provided to hm01b0_arduino.h)
-extern hm01b0_cfg_t hm01b0_cfg;
+extern hm01b0_foo_cfg_t hm01b0_foo_cfg;
 
 // Interface Function Declarations
-hm01b0_status_e   hm01b0_platform_apollo3_init(hm01b0_cfg_t* psCfg, void* arg);                                                                 // any initialization code needed
-hm01b0_status_e   hm01b0_platform_apollo3_write(hm01b0_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);   // write to registers over I2C
-hm01b0_status_e   hm01b0_platform_apollo3_read(hm01b0_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);    // read from registers over I2C
-hm01b0_status_e   hm01b0_platform_apollo3_mclk(hm01b0_cfg_t* psCfg, bool enable, void* arg);                                                    // enable/disable the clock generation hardware
-hm01b0_status_e   hm01b0_platform_apollo3_trig(hm01b0_cfg_t* psCfg, bool enable, void* arg);                                                    // enable/disabe the trigger pin
-hm01b0_status_e   hm01b0_platform_apollo3_deinit(hm01b0_cfg_t* psCfg, void* arg);                                                               // any deinitialization code needed
+hm01b0_foo_status_e   hm01b0_platform_apollo3_init(hm01b0_foo_cfg_t* psCfg, void* arg);                                                                 // any initialization code needed
+hm01b0_foo_status_e   hm01b0_platform_apollo3_write(hm01b0_foo_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);   // write to registers over I2C
+hm01b0_foo_status_e   hm01b0_platform_apollo3_read(hm01b0_foo_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg);    // read from registers over I2C
+hm01b0_foo_status_e   hm01b0_platform_apollo3_mclk(hm01b0_foo_cfg_t* psCfg, bool enable, void* arg);                                                    // enable/disable the clock generation hardware
+hm01b0_foo_status_e   hm01b0_platform_apollo3_trig(hm01b0_foo_cfg_t* psCfg, bool enable, void* arg);                                                    // enable/disabe the trigger pin
+hm01b0_foo_status_e   hm01b0_platform_apollo3_deinit(hm01b0_foo_cfg_t* psCfg, void* arg);                                                               // any deinitialization code needed
 
 #ifdef __cplusplus
 }

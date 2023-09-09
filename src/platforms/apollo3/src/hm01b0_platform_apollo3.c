@@ -28,9 +28,9 @@ SOFTWARE.
 #define MCLK_UI64PATTERNLEN     31
 
 // Forward Declarations
-hm01b0_status_e burst_mode_enable(bool bEnable);
+hm01b0_foo_status_e burst_mode_enable(bool bEnable);
 
-const am_hal_gpio_pincfg_t g_HM01B0_pin_int =
+const am_hal_gpio_pincfg_t g_HM01B0_pin_int_foo =
 {
     .uFuncSel = 3,
     .eGPOutcfg      = AM_HAL_GPIO_PIN_OUTCFG_DISABLE,
@@ -83,7 +83,7 @@ hm01b0_platform_apollo3_arg_t   hm01b0_platform_apollo3_args = {
 
 //
 // Interface
-hm01b0_if_t hm01b0_platform_apollo3_if = {
+hm01b0_foo_if_t hm01b0_platform_apollo3_if = {
   .init     = hm01b0_platform_apollo3_init,
   .write    = hm01b0_platform_apollo3_write,
   .read     = hm01b0_platform_apollo3_read,
@@ -95,7 +95,7 @@ hm01b0_if_t hm01b0_platform_apollo3_if = {
 
 //
 // Apollo3 Configuration
-hm01b0_cfg_t hm01b0_cfg = {
+hm01b0_foo_cfg_t hm01b0_foo_cfg = {
 
   .interface = &hm01b0_platform_apollo3_if,
 };
@@ -103,8 +103,8 @@ hm01b0_cfg_t hm01b0_cfg = {
 
 
 // Interface Function Definitions
-hm01b0_status_e   hm01b0_platform_apollo3_init(hm01b0_cfg_t* psCfg, void* arg){
-  hm01b0_status_e                 retval = HM01B0_ERR_OK;
+hm01b0_foo_status_e   hm01b0_platform_apollo3_init(hm01b0_foo_cfg_t* psCfg, void* arg){
+  hm01b0_foo_status_e                 retval = HM01B0_ERR_OK;
   hm01b0_platform_apollo3_arg_t*  args = (hm01b0_platform_apollo3_arg_t*)(arg);
   void *pIOMHandle = NULL;
 
@@ -172,7 +172,7 @@ hm01b0_status_e   hm01b0_platform_apollo3_init(hm01b0_cfg_t* psCfg, void* arg){
   am_hal_gpio_pinconfig(args->ui8PinTrig,    g_AM_HAL_GPIO_OUTPUT);
 
   am_hal_gpio_pinconfig(args->ui8PinInt,     g_AM_HAL_GPIO_DISABLE);
-  // am_hal_gpio_pinconfig(args->ui8PinInt,     g_HM01B0_pin_int);
+  // am_hal_gpio_pinconfig(args->ui8PinInt,     g_HM01B0_pin_int_foo);
   // am_hal_gpio_interrupt_clear(AM_HAL_GPIO_BIT(args->ui8PinInt));
   // am_hal_gpio_interrupt_enable(AM_HAL_GPIO_BIT(args->ui8PinInt));
   // NVIC_EnableIRQ(GPIO_IRQn);
@@ -182,8 +182,8 @@ hm01b0_status_e   hm01b0_platform_apollo3_init(hm01b0_cfg_t* psCfg, void* arg){
   return retval;
 }
 
-hm01b0_status_e   hm01b0_platform_apollo3_write(hm01b0_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg){
-  hm01b0_status_e                 retval = HM01B0_ERR_OK;
+hm01b0_foo_status_e   hm01b0_platform_apollo3_write(hm01b0_foo_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg){
+  hm01b0_foo_status_e                 retval = HM01B0_ERR_OK;
   am_hal_iom_transfer_t           Transaction;
   hm01b0_platform_apollo3_arg_t*  args = (hm01b0_platform_apollo3_arg_t*)(arg);
 
@@ -209,8 +209,8 @@ hm01b0_status_e   hm01b0_platform_apollo3_write(hm01b0_cfg_t* psCfg, uint16_t ui
   return retval;
 }
 
-hm01b0_status_e   hm01b0_platform_apollo3_read(hm01b0_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg){
-  hm01b0_status_e                 retval = HM01B0_ERR_OK;
+hm01b0_foo_status_e   hm01b0_platform_apollo3_read(hm01b0_foo_cfg_t* psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes, void* arg){
+  hm01b0_foo_status_e                 retval = HM01B0_ERR_OK;
   am_hal_iom_transfer_t           Transaction;
   hm01b0_platform_apollo3_arg_t*  args = (hm01b0_platform_apollo3_arg_t*)(arg);
 
@@ -236,8 +236,8 @@ hm01b0_status_e   hm01b0_platform_apollo3_read(hm01b0_cfg_t* psCfg, uint16_t ui1
   return retval;
 }
 
-hm01b0_status_e   hm01b0_platform_apollo3_mclk(hm01b0_cfg_t* psCfg, bool enable, void* arg){
-  hm01b0_status_e                 retval = HM01B0_ERR_OK;
+hm01b0_foo_status_e   hm01b0_platform_apollo3_mclk(hm01b0_foo_cfg_t* psCfg, bool enable, void* arg){
+  hm01b0_foo_status_e                 retval = HM01B0_ERR_OK;
   hm01b0_platform_apollo3_arg_t*  args = (hm01b0_platform_apollo3_arg_t*)(arg);
   static bool                     mclk_initialized = false;
   if(enable){
@@ -273,8 +273,8 @@ hm01b0_status_e   hm01b0_platform_apollo3_mclk(hm01b0_cfg_t* psCfg, bool enable,
   return retval;
 }
 
-hm01b0_status_e   hm01b0_platform_apollo3_trig(hm01b0_cfg_t* psCfg, bool enable, void* arg){
-  hm01b0_status_e                 retval = HM01B0_ERR_OK;
+hm01b0_foo_status_e   hm01b0_platform_apollo3_trig(hm01b0_foo_cfg_t* psCfg, bool enable, void* arg){
+  hm01b0_foo_status_e                 retval = HM01B0_ERR_OK;
   hm01b0_platform_apollo3_arg_t*  args = (hm01b0_platform_apollo3_arg_t*)(arg);
 
   if(enable){
@@ -286,8 +286,8 @@ hm01b0_status_e   hm01b0_platform_apollo3_trig(hm01b0_cfg_t* psCfg, bool enable,
   return retval;
 }
 
-hm01b0_status_e   hm01b0_platform_apollo3_deinit(hm01b0_cfg_t* psCfg, void* arg){
-  hm01b0_status_e                 retval = HM01B0_ERR_OK;
+hm01b0_foo_status_e   hm01b0_platform_apollo3_deinit(hm01b0_foo_cfg_t* psCfg, void* arg){
+  hm01b0_foo_status_e                 retval = HM01B0_ERR_OK;
   hm01b0_platform_apollo3_arg_t*  args = (hm01b0_platform_apollo3_arg_t*)(arg);
 
   am_hal_iom_disable(args->pIOMHandle);
@@ -328,7 +328,7 @@ hm01b0_status_e   hm01b0_platform_apollo3_deinit(hm01b0_cfg_t* psCfg, void* arg)
 
 
 // burst mode enable
-hm01b0_status_e burst_mode_enable(bool bEnable){
+hm01b0_foo_status_e burst_mode_enable(bool bEnable){
   am_hal_burst_avail_e          eBurstModeAvailable;
   am_hal_burst_mode_e           eBurstMode;
 

@@ -2,9 +2,9 @@
 #ifndef _HM01B0_WALKING_1S_01_H_
 #define _HM01B0_WALKING_1S_01_H_
 
-#include "hm01b0.h"
+#include "hm01b0_foo.h"
 
-const hm_script_t sHM01b0TestModeScript_Walking1s[] =
+const hm_script_t sHM01b0TestModeScript_Walking1s_foo[] =
 {
     {0x2100, 0x00,},    //W 24 2100 00 2 1 ; AE
     {0x1000, 0x00,},    //W 24 1000 00 2 1 ; BLC

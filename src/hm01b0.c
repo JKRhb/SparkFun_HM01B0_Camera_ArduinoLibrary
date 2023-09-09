@@ -7,7 +7,7 @@
 //
 //*****************************************************************************
 
-#include "hm01b0.h"
+#include "hm01b0_foo.h"
 #include "hm01b0_walking1s_01.h"
 #include "hm01b0_platform.h"
 
@@ -26,7 +26,7 @@
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_write_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes){
+hm01b0_foo_status_e hm01b0_foo_write_reg(hm01b0_foo_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes){
   if(psCfg->interface->write != NULL){
     return psCfg->interface->write(psCfg, ui16Reg, pui8Value, ui32NumBytes, psCfg->interface->arg);
   }else{
@@ -49,7 +49,7 @@ hm01b0_status_e hm01b0_write_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t 
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_read_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes){
+hm01b0_foo_status_e hm01b0_foo_read_reg(hm01b0_foo_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *pui8Value, uint32_t ui32NumBytes){
   if(psCfg->interface->read != NULL){
     return psCfg->interface->read(psCfg, ui16Reg, pui8Value, ui32NumBytes, psCfg->interface->arg);
   }else{
@@ -70,18 +70,18 @@ hm01b0_status_e hm01b0_read_reg(hm01b0_cfg_t *psCfg, uint16_t ui16Reg, uint8_t *
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_load_script(hm01b0_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum)
+hm01b0_foo_status_e hm01b0_foo_load_script(hm01b0_foo_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum)
 {
-  hm01b0_status_e ui32Err = HM01B0_ERR_OK;
+  hm01b0_foo_status_e ui32Err = HM01B0_ERR_OK;
   for (uint32_t idx = 0; idx < ui32ScriptCmdNum; idx++)
   {
-    ui32Err = hm01b0_write_reg(psCfg, (psScript + idx)->ui16Reg, &((psScript + idx)->ui8Val), sizeof(uint8_t));
+    ui32Err = hm01b0_foo_write_reg(psCfg, (psScript + idx)->ui16Reg, &((psScript + idx)->ui8Val), sizeof(uint8_t));
     if (ui32Err != HM01B0_ERR_OK)
     {
       break;
     }
   }
-  return ui32Err;   
+  return ui32Err;
 }
 
 //*****************************************************************************
@@ -95,9 +95,9 @@ hm01b0_status_e hm01b0_load_script(hm01b0_cfg_t *psCfg, hm_script_t *psScript, u
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_power_up(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_power_up(hm01b0_foo_cfg_t *psCfg)
 {
-  hm01b0_status_e retval = HM01B0_ERR_OK;
+  hm01b0_foo_status_e retval = HM01B0_ERR_OK;
   // place holder
   (void)(psCfg);
   return retval;
@@ -114,9 +114,9 @@ hm01b0_status_e hm01b0_power_up(hm01b0_cfg_t *psCfg)
 //! @return none.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_power_down(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_power_down(hm01b0_foo_cfg_t *psCfg)
 {
-  hm01b0_status_e retval = HM01B0_ERR_OK;
+  hm01b0_foo_status_e retval = HM01B0_ERR_OK;
   // place holder
   (void)(psCfg);
   return retval;
@@ -133,7 +133,7 @@ hm01b0_status_e hm01b0_power_down(hm01b0_cfg_t *psCfg)
 //! @return none.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_mclk_enable(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_mclk_enable(hm01b0_foo_cfg_t *psCfg)
 {
   if(psCfg->interface->mclk != NULL){
     return psCfg->interface->mclk(psCfg, true, psCfg->interface->arg);
@@ -153,7 +153,7 @@ hm01b0_status_e hm01b0_mclk_enable(hm01b0_cfg_t *psCfg)
 //! @return none.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_mclk_disable(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_mclk_disable(hm01b0_foo_cfg_t *psCfg)
 {
   if(psCfg->interface->mclk != NULL){
     return psCfg->interface->mclk(psCfg, false, psCfg->interface->arg);
@@ -173,7 +173,7 @@ hm01b0_status_e hm01b0_mclk_disable(hm01b0_cfg_t *psCfg)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_init_if(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_init_if(hm01b0_foo_cfg_t *psCfg)
 {
   if(psCfg->interface->init != NULL){
     return psCfg->interface->init(psCfg, psCfg->interface->arg);
@@ -193,7 +193,7 @@ hm01b0_status_e hm01b0_init_if(hm01b0_cfg_t *psCfg)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_deinit_if(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_deinit_if(hm01b0_foo_cfg_t *psCfg)
 {
   if(psCfg->interface->deinit != NULL){
     return psCfg->interface->deinit(psCfg, psCfg->interface->arg);
@@ -214,20 +214,20 @@ hm01b0_status_e hm01b0_deinit_if(hm01b0_cfg_t *psCfg)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_get_modelid(hm01b0_cfg_t *psCfg, uint16_t *pui16MID)
+hm01b0_foo_status_e hm01b0_foo_get_modelid(hm01b0_foo_cfg_t *psCfg, uint16_t *pui16MID)
 {
     uint8_t ui8Data[1];
-    hm01b0_status_e ui32Err;
+    hm01b0_foo_status_e ui32Err;
 
     *pui16MID = 0x0000;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_MODEL_ID_H, ui8Data, sizeof(ui8Data));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_MODEL_ID_H, ui8Data, sizeof(ui8Data));
     if (ui32Err == HM01B0_ERR_OK)
     {
         *pui16MID |= (ui8Data[0] << 8);
     }
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_MODEL_ID_L, ui8Data, sizeof(ui8Data));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_MODEL_ID_L, ui8Data, sizeof(ui8Data));
     if (ui32Err == HM01B0_ERR_OK)
     {
         *pui16MID |= ui8Data[0];
@@ -249,9 +249,9 @@ hm01b0_status_e hm01b0_get_modelid(hm01b0_cfg_t *psCfg, uint16_t *pui16MID)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_init_system(hm01b0_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum)
+hm01b0_foo_status_e hm01b0_foo_init_system(hm01b0_foo_cfg_t *psCfg, hm_script_t *psScript, uint32_t ui32ScriptCmdNum)
 {
-    return hm01b0_load_script(psCfg, psScript, ui32ScriptCmdNum);
+    return hm01b0_foo_load_script(psCfg, psScript, ui32ScriptCmdNum);
 }
 
 //*****************************************************************************
@@ -265,12 +265,12 @@ hm01b0_status_e hm01b0_init_system(hm01b0_cfg_t *psCfg, hm_script_t *psScript, u
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_test_walking1s(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_test_walking1s(hm01b0_foo_cfg_t *psCfg)
 {
-    uint32_t ui32ScriptCmdNum = sizeof(sHM01b0TestModeScript_Walking1s) / sizeof(hm_script_t);
-    hm_script_t *psScript = (hm_script_t *)sHM01b0TestModeScript_Walking1s;
+    uint32_t ui32ScriptCmdNum = sizeof(sHM01b0TestModeScript_Walking1s_foo) / sizeof(hm_script_t);
+    hm_script_t *psScript = (hm_script_t *)sHM01b0TestModeScript_Walking1s_foo;
 
-    return hm01b0_load_script(psCfg, psScript, ui32ScriptCmdNum);
+    return hm01b0_foo_load_script(psCfg, psScript, ui32ScriptCmdNum);
 }
 
 //*****************************************************************************
@@ -286,7 +286,7 @@ hm01b0_status_e hm01b0_test_walking1s(hm01b0_cfg_t *psCfg)
 //! @return Mismatch count
 //
 //*****************************************************************************
-uint32_t hm01b0_test_walking1s_check_data_sanity(uint8_t *pui8Buffer, uint32_t ui32BufferLen)
+uint32_t hm01b0_foo_test_walking1s_check_data_sanity(uint8_t *pui8Buffer, uint32_t ui32BufferLen)
 {
     uint8_t ui8ByteData = *pui8Buffer;
     uint32_t ui32MismatchCnt = 0x00;
@@ -317,10 +317,10 @@ uint32_t hm01b0_test_walking1s_check_data_sanity(uint8_t *pui8Buffer, uint32_t u
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_reset_sw(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_reset_sw(hm01b0_foo_cfg_t *psCfg)
 {
     uint8_t ui8Data[1] = {0x00};
-    return hm01b0_write_reg(psCfg, HM01B0_REG_SW_RESET, ui8Data, sizeof(ui8Data));
+    return hm01b0_foo_write_reg(psCfg, HM01B0_REG_SW_RESET, ui8Data, sizeof(ui8Data));
 }
 
 //*****************************************************************************
@@ -336,12 +336,12 @@ hm01b0_status_e hm01b0_reset_sw(hm01b0_cfg_t *psCfg)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_get_mode(hm01b0_cfg_t *psCfg, uint8_t *pui8Mode)
+hm01b0_foo_status_e hm01b0_foo_get_mode(hm01b0_foo_cfg_t *psCfg, uint8_t *pui8Mode)
 {
     uint8_t ui8Data[1] = {0x01};
     uint32_t ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_MODE_SELECT, ui8Data, sizeof(ui8Data));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_MODE_SELECT, ui8Data, sizeof(ui8Data));
 
     *pui8Mode = ui8Data[0];
 
@@ -366,18 +366,18 @@ hm01b0_status_e hm01b0_get_mode(hm01b0_cfg_t *psCfg, uint8_t *pui8Mode)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_set_mode(hm01b0_cfg_t *psCfg, uint8_t ui8Mode, uint8_t ui8FrameCnt)
+hm01b0_foo_status_e hm01b0_foo_set_mode(hm01b0_foo_cfg_t *psCfg, uint8_t ui8Mode, uint8_t ui8FrameCnt)
 {
     uint32_t ui32Err = HM01B0_ERR_OK;
 
     if (ui8Mode == HM01B0_REG_MODE_SELECT_STREAMING_NFRAMES)
     {
-        ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_PMU_PROGRAMMABLE_FRAMECNT, &ui8FrameCnt, sizeof(ui8FrameCnt));
+        ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_PMU_PROGRAMMABLE_FRAMECNT, &ui8FrameCnt, sizeof(ui8FrameCnt));
     }
 
     if(ui32Err == HM01B0_ERR_OK)
     {
-        ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_MODE_SELECT, &ui8Mode, sizeof(ui8Mode));
+        ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_MODE_SELECT, &ui8Mode, sizeof(ui8Mode));
     }
 
     return ui32Err;
@@ -395,11 +395,11 @@ hm01b0_status_e hm01b0_set_mode(hm01b0_cfg_t *psCfg, uint8_t ui8Mode, uint8_t ui
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_cmd_update(hm01b0_cfg_t *psCfg)
+hm01b0_foo_status_e hm01b0_foo_cmd_update(hm01b0_foo_cfg_t *psCfg)
 {
     uint8_t     ui8Data = HM01B0_REG_GRP_PARAM_HOLD_HOLD;
 
-    return hm01b0_write_reg(psCfg, HM01B0_REG_GRP_PARAM_HOLD, &ui8Data, sizeof(ui8Data));
+    return hm01b0_foo_write_reg(psCfg, HM01B0_REG_GRP_PARAM_HOLD, &ui8Data, sizeof(ui8Data));
 }
 
 //*****************************************************************************
@@ -407,7 +407,7 @@ hm01b0_status_e hm01b0_cmd_update(hm01b0_cfg_t *psCfg)
 //! @brief Get HM01B0 AE convergance
 //!
 //! @param psCfg            - Pointer to HM01B0 configuration structure.
-//! @param psAECfg          - Pointer to the structure hm01b0_ae_cfg_t.
+//! @param psAECfg          - Pointer to the structure hm01b0_foo_ae_cfg_t.
 //!
 //! This function checks if AE is converged or not and returns ui32Err accordingly.
 //! If caller needs detailed AE settings, psAECfg has to be non NULL.
@@ -415,7 +415,7 @@ hm01b0_status_e hm01b0_cmd_update(hm01b0_cfg_t *psCfg)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_get_ae(hm01b0_cfg_t *psCfg, hm01b0_ae_cfg_t *psAECfg)
+hm01b0_foo_status_e hm01b0_foo_get_ae(hm01b0_foo_cfg_t *psCfg, hm01b0_foo_ae_cfg_t *psAECfg)
 {
     uint32_t    ui32Err = HM01B0_ERR_OK;
     uint8_t     ui8AETargetMean;
@@ -424,19 +424,19 @@ hm01b0_status_e hm01b0_get_ae(hm01b0_cfg_t *psCfg, hm01b0_ae_cfg_t *psAECfg)
     uint8_t     ui8ConvergeInTh;
     uint8_t     ui8ConvergeOutTh;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_AE_TARGET_MEAN, &ui8AETargetMean, sizeof(ui8AETargetMean));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_AE_TARGET_MEAN, &ui8AETargetMean, sizeof(ui8AETargetMean));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_AE_MIN_MEAN, &ui8AEMinMean, sizeof(ui8AEMinMean));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_AE_MIN_MEAN, &ui8AEMinMean, sizeof(ui8AEMinMean));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_CONVERGE_IN_TH, &ui8ConvergeInTh, sizeof(ui8ConvergeInTh));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_CONVERGE_IN_TH, &ui8ConvergeInTh, sizeof(ui8ConvergeInTh));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_CONVERGE_OUT_TH, &ui8ConvergeOutTh, sizeof(ui8ConvergeOutTh));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_CONVERGE_OUT_TH, &ui8ConvergeOutTh, sizeof(ui8ConvergeOutTh));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, 0x2020, &ui8AEMean, sizeof(ui8AEMean));
+    ui32Err = hm01b0_foo_read_reg(psCfg, 0x2020, &ui8AEMean, sizeof(ui8AEMean));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
     if ((ui8AEMean < (ui8AETargetMean - ui8ConvergeInTh)) || (ui8AEMean > (ui8AETargetMean + ui8ConvergeInTh)))
@@ -469,21 +469,21 @@ hm01b0_status_e hm01b0_get_ae(hm01b0_cfg_t *psCfg, hm01b0_ae_cfg_t *psAECfg)
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_cal_ae(hm01b0_cfg_t *psCfg, uint8_t ui8CalFrames, uint8_t *pui8Buffer, uint32_t ui32BufferLen, hm01b0_ae_cfg_t* pAECfg)
+hm01b0_foo_status_e hm01b0_foo_cal_ae(hm01b0_foo_cfg_t *psCfg, uint8_t ui8CalFrames, uint8_t *pui8Buffer, uint32_t ui32BufferLen, hm01b0_foo_ae_cfg_t* pAECfg)
 {
     uint32_t        ui32Err     = HM01B0_ERR_OK;
     if(pAECfg == NULL){
         return HM01B0_ERR_PARAMS;
     }
 
-    hm01b0_set_mode(psCfg, HM01B0_REG_MODE_SELECT_STREAMING_NFRAMES, ui8CalFrames);
+    hm01b0_foo_set_mode(psCfg, HM01B0_REG_MODE_SELECT_STREAMING_NFRAMES, ui8CalFrames);
 
     for (uint8_t i = 0; i < ui8CalFrames; i++)
     {
 
-        hm01b0_blocking_read_oneframe(psCfg, pui8Buffer, ui32BufferLen);
+        hm01b0_foo_blocking_read_oneframe(psCfg, pui8Buffer, ui32BufferLen);
 
-        ui32Err = hm01b0_get_ae(psCfg, pAECfg);
+        ui32Err = hm01b0_foo_get_ae(psCfg, pAECfg);
 
         // // todo: could report out intermediate results here (without using printing - perhaps a callback function)
         // SERIAL_PORT.printf("AE Calibration(0x%02X) TargetMean 0x%02X, ConvergeInTh 0x%02X, AEMean 0x%02X\n",
@@ -494,7 +494,7 @@ hm01b0_status_e hm01b0_cal_ae(hm01b0_cfg_t *psCfg, uint8_t ui8CalFrames, uint8_t
             break;
     }
 
-    hm01b0_set_mode(psCfg, HM01B0_REG_MODE_SELECT_STANDBY, 0);
+    hm01b0_foo_set_mode(psCfg, HM01B0_REG_MODE_SELECT_STANDBY, 0);
 
     return ui32Err;
 }
@@ -505,14 +505,14 @@ hm01b0_status_e hm01b0_cal_ae(hm01b0_cfg_t *psCfg, uint8_t ui8CalFrames, uint8_t
 //! @brief Save HM01B0 exposure gain settings.
 //!
 //! @param psCfg            - Pointer to HM01B0 configuration structure.
-//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_snr_expo_gain_ctrl_t
+//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_foo_snr_expo_gain_ctrl_t
 //!
 //! This function saves HM01B0 exposure gain settings.
 //!
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_save_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_expo_gain_ctrl_t *psExpoGainCtrl)
+hm01b0_foo_status_e hm01b0_foo_save_exposure_gains(hm01b0_foo_cfg_t *psCfg, hm01b0_foo_snr_expo_gain_ctrl_t *psExpoGainCtrl)
 {
     uint32_t ui32Err = HM01B0_ERR_OK;
     uint8_t ui8IntegrationH;
@@ -521,19 +521,19 @@ hm01b0_status_e hm01b0_save_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_expo_
     uint8_t ui8DGain_H;
     uint8_t ui8DGain_L;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_INTEGRATION_H,     &ui8IntegrationH, sizeof(ui8IntegrationH));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_INTEGRATION_H,     &ui8IntegrationH, sizeof(ui8IntegrationH));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_INTEGRATION_L,     &ui8IntegrationL, sizeof(ui8IntegrationL));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_INTEGRATION_L,     &ui8IntegrationL, sizeof(ui8IntegrationL));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_ANALOG_GAIN,       &ui8AGain,        sizeof(ui8AGain));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_ANALOG_GAIN,       &ui8AGain,        sizeof(ui8AGain));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_H,    &ui8DGain_H,      sizeof(ui8DGain_H));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_H,    &ui8DGain_H,      sizeof(ui8DGain_H));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_L,    &ui8DGain_L,      sizeof(ui8DGain_L));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_L,    &ui8DGain_L,      sizeof(ui8DGain_L));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
     if (psExpoGainCtrl)
@@ -553,38 +553,38 @@ hm01b0_status_e hm01b0_save_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_expo_
 //! @brief Restore HM01B0 exposure gain settings.
 //!
 //! @param psCfg            - Pointer to HM01B0 configuration structure.
-//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_snr_expo_gain_ctrl_t
+//! @param psExpoGainCtrl   - Pointer to the structure hm01b0_foo_snr_expo_gain_ctrl_t
 //!
 //! This function restores HM01B0 exposure gain settings. The call flow shall be
-//! hm01b0_restore_exposure_gains() -> hm01b0_cmd_update() -> hm01b0_set_mode()
+//! hm01b0_foo_restore_exposure_gains() -> hm01b0_foo_cmd_update() -> hm01b0_foo_set_mode()
 //!
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_restore_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_expo_gain_ctrl_t *psExpoGainCtrl)
+hm01b0_foo_status_e hm01b0_foo_restore_exposure_gains(hm01b0_foo_cfg_t *psCfg, hm01b0_foo_snr_expo_gain_ctrl_t *psExpoGainCtrl)
 {
     uint32_t    ui32Err = HM01B0_ERR_OK;
     uint8_t     ui8Tmp;
 
-    ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_INTEGRATION_H,  &(psExpoGainCtrl->ui8IntegrationH), sizeof(psExpoGainCtrl->ui8IntegrationH));
+    ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_INTEGRATION_H,  &(psExpoGainCtrl->ui8IntegrationH), sizeof(psExpoGainCtrl->ui8IntegrationH));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_INTEGRATION_L,  &(psExpoGainCtrl->ui8IntegrationL), sizeof(psExpoGainCtrl->ui8IntegrationL));
+    ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_INTEGRATION_L,  &(psExpoGainCtrl->ui8IntegrationL), sizeof(psExpoGainCtrl->ui8IntegrationL));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_ANALOG_GAIN,     &ui8Tmp,    sizeof(ui8Tmp));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_ANALOG_GAIN,     &ui8Tmp,    sizeof(ui8Tmp));
     ui8Tmp = (ui8Tmp & ~(0x7 << 4)) | (psExpoGainCtrl->ui8AGain & (0x7 << 4));
-    ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_ANALOG_GAIN,    &ui8Tmp,    sizeof(ui8Tmp));
+    ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_ANALOG_GAIN,    &ui8Tmp,    sizeof(ui8Tmp));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_H,      &ui8Tmp,    sizeof(ui8Tmp));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_H,      &ui8Tmp,    sizeof(ui8Tmp));
     ui8Tmp = (ui8Tmp & ~(0x3 << 0)) | (psExpoGainCtrl->ui8DGain_H & (0x3 << 0));
-    ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_H,     &ui8Tmp,    sizeof(ui8Tmp));
+    ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_H,     &ui8Tmp,    sizeof(ui8Tmp));
     if (ui32Err != HM01B0_ERR_OK) return ui32Err;
 
-    ui32Err = hm01b0_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_L,      &ui8Tmp,    sizeof(ui8Tmp));
+    ui32Err = hm01b0_foo_read_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_L,      &ui8Tmp,    sizeof(ui8Tmp));
     ui8Tmp = (ui8Tmp & ~(0x3F << 2)) | (psExpoGainCtrl->ui8DGain_L & (0x3F << 2));
-    ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_L,     &ui8Tmp,    sizeof(ui8Tmp));
+    ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_DIGITAL_GAIN_L,     &ui8Tmp,    sizeof(ui8Tmp));
 
     return ui32Err;
 
@@ -603,7 +603,7 @@ hm01b0_status_e hm01b0_restore_exposure_gains(hm01b0_cfg_t *psCfg, hm01b0_snr_ex
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_hardware_trigger_streaming(hm01b0_cfg_t *psCfg, bool bTrigger)
+hm01b0_foo_status_e hm01b0_foo_hardware_trigger_streaming(hm01b0_foo_cfg_t *psCfg, bool bTrigger)
 {
     uint32_t ui32Err = HM01B0_ERR_OK;
     uint8_t ui8Mode;
@@ -613,7 +613,7 @@ hm01b0_status_e hm01b0_hardware_trigger_streaming(hm01b0_cfg_t *psCfg, bool bTri
         goto end;
     }
 
-    ui32Err = hm01b0_get_mode(psCfg, &ui8Mode);
+    ui32Err = hm01b0_foo_get_mode(psCfg, &ui8Mode);
 
     if (ui32Err != HM01B0_ERR_OK)
         goto end;
@@ -650,7 +650,7 @@ end:
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_set_mirror(hm01b0_cfg_t *psCfg, bool bHmirror, bool bVmirror)
+hm01b0_foo_status_e hm01b0_foo_set_mirror(hm01b0_foo_cfg_t *psCfg, bool bHmirror, bool bVmirror)
 {
     uint8_t ui8Data = 0x00;
     uint32_t ui32Err = HM01B0_ERR_OK;
@@ -665,12 +665,12 @@ hm01b0_status_e hm01b0_set_mirror(hm01b0_cfg_t *psCfg, bool bHmirror, bool bVmir
         ui8Data |= HM01B0_REG_IMAGE_ORIENTATION_VMIRROR;
     }
 
-    ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_IMAGE_ORIENTATION, &ui8Data, sizeof(ui8Data));
+    ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_IMAGE_ORIENTATION, &ui8Data, sizeof(ui8Data));
 
     if (ui32Err == HM01B0_ERR_OK)
     {
         ui8Data = HM01B0_REG_GRP_PARAM_HOLD_HOLD;
-        ui32Err = hm01b0_write_reg(psCfg, HM01B0_REG_GRP_PARAM_HOLD, &ui8Data, sizeof(ui8Data));
+        ui32Err = hm01b0_foo_write_reg(psCfg, HM01B0_REG_GRP_PARAM_HOLD, &ui8Data, sizeof(ui8Data));
     }
 
     return ui32Err;
@@ -690,7 +690,7 @@ hm01b0_status_e hm01b0_set_mirror(hm01b0_cfg_t *psCfg, bool bHmirror, bool bVmir
 //! @return Error code.
 //
 //*****************************************************************************
-hm01b0_status_e hm01b0_blocking_read_oneframe(hm01b0_cfg_t *psCfg, uint8_t *pui8Buffer, uint32_t ui32BufferLen)
+hm01b0_foo_status_e hm01b0_foo_blocking_read_oneframe(hm01b0_foo_cfg_t *psCfg, uint8_t *pui8Buffer, uint32_t ui32BufferLen)
 {
     (void)(psCfg);
     uint32_t    ui32Err         = HM01B0_ERR_OK;

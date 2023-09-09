@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 #include "stdint.h"
-#include "hm01b0.h"
+#include "hm01b0_foo.h"
 
 // todo: implement real macros for generic Arduino imlementation
 #define HM01B0_READ_VSYNC     (0)
